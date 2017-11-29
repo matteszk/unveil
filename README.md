@@ -1,19 +1,28 @@
-#unveil.js
-###A very lightweight plugin to lazy load images for jQuery or Zepto.js
+This fork adds element.classList.add() capability.
 
+Elements need a data-class="" attribute with the class to add on unveil, as well as the class `.unveil` to locate them. Original purpose was to lazy load background images that have complex css, specifically retina media queries. 
 
+Note you also need to alter the unveil() call on documemt.ready to include these .unveil divs. Ex:
 
-Most of us are familiar with the [Lazy Load](http://www.appelsiini.net/projects/lazyload) plugin by [Mika Tuupola](http://www.appelsiini.net/).
-This plugin is very useful and it boosts performance delaying loading of images in long web pages because images outside of viewport (visible part of web page) won't be loaded until the user scrolls to them.
-Lazy Load has some cool options such as custom effects, container, events or data attribute. If you're not gonna use any of them you can reduce the file size by leaving just the essential code to show the images.
-That's what I did and this is my lightweight version of Lazy Load with support for serving high-resolution images to devices with retina displays - less than 1k.
+```
+<style>
+.lazy-image {
+  background-image: url("path/to/lazy-image.jpg")
+}
 
-Visit unveil's [project page](http://luis-almeida.github.com/unveil/) to read the documentation and see the demo.
+@media (-webkit-min-device-pixel-ratio:1.5), all and (-o-min-device-pixel-ratio:3/2), all and (min--moz-device-pixel-ratio:1.5), all and (min-device-pixel-ratio:1.5) {
+  .lazy-image {
+    background-image: url("path/to/lazy-image@2x.jpg")
+  }
+}
+</style>
+<div class="unveil" data-class="lazy-loaded-image"></div>
 
+<script>
+  $(document).ready(function() {
+    $("img, .unveil").unveil();
+  });
+</script>
+```
 
-###Browser support
-Compatible with All Browsers and IE7+.
-
-
-###License
-Unveil is licensed under the [MIT license](http://opensource.org/licenses/MIT).
+Visit original unveil's [project page](http://luis-almeida.github.com/unveil/) for more info.
